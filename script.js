@@ -30,20 +30,14 @@ class Pet {
     this.species = species;
     this.breed = breed;
   }
-  static sameOwner(owner) {
-    return this.ownerName === owner.ownerName;
+  sameOwner(owner) {
+    if (this.ownerName === owner.ownerName) {
+      return `${owner.petName} e ${this.petName} hanno ${owner.ownerName} come owner`;
+    } else {
+      return `${owner.petName} non ha altri animali`;
+    }
   }
 }
-
-// const DynamicPet = function (petName, ownerName, species, breed) {
-//   this.petName = petName;
-//   this.ownerName = ownerName;
-//   this.species = species;
-//   this.breed = breed;
-// };
-
-// const newPet = new DynamicPet("Leutu", "Gabriel", "Cane", "Pitbull");
-// console.log(newPet);
 
 const form = document.querySelector("form");
 const pets = [];
@@ -56,15 +50,9 @@ form.onsubmit = function (e) {
   const species = document.getElementById("species").value;
   const breed = document.getElementById("breed").value;
   const newPet = new Pet(petName, ownerName, species, breed);
+
+  pets.forEach((pet) => console.log(newPet.sameOwner(pet)));
   pets.push(newPet);
 
   form.reset(); // eventualmente alla fine possiamo resettare i campi
-  pets.forEach((pet) => {
-    const sameOwners = pets.filter((pet) => pet.ownerName === newPet.ownerName);
-
-    // if (pets.length > 1 && newPet.ownerName === pet.ownerName) {
-    //   console.log(`${newPet.petName} ha lo stesso owner di ${pet.petName}`);
-    // }
-    console.log(`animali con lo stesso padrone ${sameOwners}`);
-  });
 };
